@@ -1,0 +1,50 @@
+@import "modules/_colors";
+
+$phone2: "(min-width: 100px) and (max-width: 299px)";
+$phone: "(min-width: 300px) and (max-width: 599px)";
+$smPhone: "(min-width: 600px) and (max-width: 767px)";
+$tablet: "(min-width: 768px) and (max-width: 1110px)";
+$desktop: "(min-width: 1111px) and (max-width: 1600px)";
+$maxDesktop: "(min-width: 1601px)";
+
+@mixin phone2($width) {
+  @media #{$phone} {
+    @content;
+    width: $width;
+  }
+}
+
+@mixin phone($width)  {
+  @media #{$phone} {
+    @content;
+    width: $width;
+  }
+}
+
+@mixin smPhone($width) {
+  @media #{$smPhone} {
+    @content;
+    width: $width;
+  }
+}
+
+@mixin tablet($width) {
+  @media #{$tablet} {
+    @content;
+    width: $width;
+  }
+}
+
+@mixin desktop($width) {
+  @media #{$desktop} {
+    @content;
+    width: $width;
+  }
+}
+
+@mixin maxDesktop($width) {
+  @media #{$maxDesktop} {
+    @content;
+    width: $width;
+  }
+}

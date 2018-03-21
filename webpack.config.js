@@ -1,11 +1,11 @@
-
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './js/app.js',
+  entry: './src/js/app.js',
   output: {
-    // path: 'dist'
-    filename: './dist/bundle.js'
+    path: __dirname + './dist',
+    filename: './js/bundle.js'
   },
   watch: true,
   devtool: "source-map",
@@ -19,10 +19,10 @@ module.exports = {
           presets: ['es2015']
         }
       },
-      {
-        test: /\.css$/,
-        loaders: ['style-loader', 'css-loader']
-      },
+      // {
+      //   test: /\.css$/,
+      //   loader: ['style-loader', 'css-loader','sass-loader']
+      // },
       {
         test: /\.scss$/,
         loaders: ['style-loader', 'css-loader','sass-loader']
@@ -32,6 +32,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'fronted_recruitment',
+      filename:'./../index.html',
+      hash: true,
       template: 'my-index.html' //load
     })
   ]

@@ -1,0 +1,192 @@
+@import "modules/_colors";
+
+// %clearfix {
+//   &:after,
+//   &:before {
+//     content: "";
+//     display: block;
+//     clear: both;
+//   }
+// }
+
+
+%clearfix {
+    *zoom: 1;
+
+    &:after,
+    &:before {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+
+%float {
+  float: left;
+  display: block;
+}
+
+%input {
+  padding: 1rem;
+  outline: 0;
+  font-family: inherit;
+  font-size: 0.95em;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+%form {
+  padding: 0.5rem;
+  margin: 10px auto;
+  border-radius: 1px;
+}
+
+@mixin inputSubmit($colorBackground, $color ) {
+  input[type="submit"] {
+    background: $colorBackground;
+    border-color: transparent;
+    color: $color;
+    cursor: pointer;
+
+    :focus {
+      border: 0.1em solid darken(#ccc, 6%);
+    }
+  }
+}
+
+////////////////////
+///// buttons /////
+//////////////////
+
+
+@mixin button($colorBasic, $colorHover, $colorText, $colortextHover) {
+
+  background: $colorBasic;
+  color: $colorText;
+  border: 0;
+  border-radius: 2px;
+  transition: .6s;
+  overflow: hidden;
+  text-decoration: none;
+
+  &:focus{
+    outline: 0;
+  }
+  &:before{
+    font-family: 'iconfont';
+    content: "\ea2d";
+    display: block;
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: .5;
+    filter: blur(30px);
+    transform: translateX(-100px)  skewX(-15deg);
+  }
+  &:after{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 100%;
+    left: 30px;
+    top: 0;
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateX(-100px) skewX(-15deg);
+  }
+  &:hover{
+    background: $colorHover;
+    cursor: pointer;
+  }
+}
+
+$button-color: #2D3142;
+
+@mixin buttonStore($colorBasic, $colorHover, $colorText, $colortextHover) {
+
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+
+  cursor: pointer;
+
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 1px;
+  text-decoration: none;
+  color: $colorText;
+  background-color: $colorBasic;
+
+  &:hover {
+    background-color: $colorHover;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  &:focus {
+  }
+  &:active {
+  }
+}
+
+@mixin bookHover($colorBasic, $colorHover, $colorText, $colortextHover) {
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+
+
+  &:hover {
+    background-color: $colorHover;
+    top: 0;
+    transform: translateY(-4px);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+    // border: 1px solid map-get($mapOfPrimarColors, whiteGwo);
+    // opacity: 0;
+    // filter: blur(5px);
+    // transform: translateX(-5px);
+
+  }
+  &:focus {
+  }
+  &:active {
+  }
+}
+
+////////////////////
+///// hover /////
+/////////////////
+
+
+
+/////add new class/////
+@mixin newClass {
+  @for $i from 1 through 12 {
+    .column-#{$i} {
+      width: 100% / 12 * $i;
+    }
+  }
+}

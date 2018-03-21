@@ -1,0 +1,126 @@
+$primary-color: #ea8300;
+$additional-color: #d5041f;
+$complementary-color: #f5bf00;
+$accent-color: black;
+$neutral-color: #FFF;
+$mapOfPrimarColors: (
+  redGwo: #d5041f,
+  orangeGwo: #ea8300,
+  yellowGwo: #f5bf00,
+  whiteGwo: #FFF,
+  fontMainColor: #747a8a
+);
+
+$mapOfColors: (
+  backgoundColor: #FFF,
+  bgColor: #f7f7f7,
+  footerColor: #fe6103,
+  linkCoror: #00c6ff,
+  hoverColor: #9600ff,
+  fontAdditionalColor: #bababa
+);
+
+////////////////////////////////////
+/////////// loop colors ///////////
+//////////////////////////////////
+
+//// add colors to child elements ////
+$total: 5;
+$step: 90deg / $total;
+@mixin fullOfColors {
+  @for $i from 1 through $total {
+    :nth-child(#{$i}) {
+      background: adjust-hue(blue, $i * $step);
+    }
+  }
+}
+
+@mixin fullOfMainColorsParents {
+  $primarColors: (
+    #d5041f,
+    #ea8300,
+    #f5bf00,
+    #FFF,
+    #747a8a );
+  @for $i from 1 through length($primarColors) {
+    :nth-child(#{length($primarColors)}n+#{$i}) {
+      background: nth($primarColors, $i);
+    }
+  }
+}
+
+@mixin randomWidthAndColor {
+  @for $i from 1 through 30 {
+    &:nth-child(#{$i}) {
+      width: random(100) + %;
+      @include fullOfMainColorsChild;
+    }
+  }
+}
+
+//////////////////////////////////////////
+/////////// loop Even colors  ///////////
+////////////////////////////////////////
+$colorsName: (
+  one: red,
+  two: blue,
+  three: green
+);
+@mixin colorEven {
+  @for $i from 1 to 21 {
+    &:nth-child(#{$i}) {
+      //Jeżeli jest nieparzyste to pobieram z mapy color one i rozjaśniam
+      //map-get('mapa', 'klucz w mapie' ) - pobieranie koloru z mapy
+      @if $i % 2 != 0 {
+        background-color: lighten(map-get($colorsName, one), 2 * $i);
+      }
+      //Jeżeli parzyste pobieram z mapy color two i rozjaśniam
+      @if $i % 2 == 0 {
+        background-color: lighten(map-get($colorsName, two), 2 * $i);
+      }
+    }
+  }
+}
+
+//////////////////////////////////////////
+/////////// loop rainbow colors  ////////
+////////////////////////////////////////
+
+@mixin rainbowColors {
+  @for $i from 1 to 21 {
+    &:nth-child(#{$i}) {
+      background-color: adjust-hue(blue, 15deg * $i);
+    }
+  }
+}
+
+//////////////////////////////////////////
+/////////// loop map of color  //////////
+////////////////////////////////////////
+
+$rainbow: (
+  Red: #FF0000,
+  Orange: #FF7F00,
+  Green: #36b119,
+  Blue: #0000FF,
+  Indigo: #4B0082,
+  Violet: #8F00FF,
+  Yellow: #FFFF00,
+  gray: #CCCCCC);
+
+  @mixin rainbowColorsMap {
+    $counter: 1;
+
+    @each $key, $value in $rainbow {
+
+        &:nth-child(#{$counter}) {
+            background-color: $value;
+
+            &:before {
+                content: quote($key); //Funkcja quote opakowuje mi $key w cudzysłow
+            }
+        }
+        //Zwiększam index
+        $counter: $counter + 1;
+    }
+  }

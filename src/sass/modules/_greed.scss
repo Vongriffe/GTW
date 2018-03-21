@@ -1,0 +1,115 @@
+@mixin greedFor($numberOfColl) {
+
+  $totalColumns: $numberOfColl;
+  $colWidths: ();
+
+  @for $i from 1 through $totalColumns {
+    @for $j from 1 through $i {
+      $w: ($j/$i);
+
+      @if not index($colWidths, $w) {
+        .col-#{$j}-#{$i} {
+          width: $w * 100%;
+          @include fullOfMainColorsChild;
+        }
+        $colWidths: append($colWidths, $w, comma);
+      }
+    }
+  }
+}
+
+// @include space-out(1, 4);
+@mixin space-out($min, $max) {
+  @for $i from $min through $max {
+    &:nth-child(#{$i}),
+    &:nth-child(#{$i}) ~ & {
+      width: 1 / $i * 100%;
+      border: 1px solid gray;
+      @include fullOfMainColorsChild;
+      // $typeWidth == 33.33333%;
+      // @if $typeWidth == 33.33333% {
+      //   width: 50%;
+      //   border-top: 1rem;
+      // }
+    }
+  }
+}
+
+@mixin space-out2($min, $max) {
+  @for $i from $min through $max {
+    &:nth-child(#{$i}) {
+      width: 100% / $max * $i;
+      border: 1px solid gray;
+      @include fullOfMainColorsChild;
+    }
+  }
+}
+
+@mixin fullOfMainColorsChild {
+
+  $primarColors: (#d5041f, #ea8300, #f5bf00, #FFF, #747a8a);
+
+  @for $i from 1 through length($primarColors) {
+    &:nth-child(#{length($primarColors)}n+#{$i}) {
+      background: nth($primarColors, $i)
+    }
+  }
+}
+
+/////////////////////////////////////
+///// ROW Green / Column Greed /////
+///////////////////////////////////
+
+// @include rowGreed(4, 2%);
+
+@mixin rowGreed($numPerRow, $margin) {
+  width: ((100% - (($numPerRow - 1) * $margin)) / $numPerRow);
+  &:nth-child(n) {
+    margin-bottom: $margin;
+    margin-right: $margin;
+    border: 1px solid gray;
+    @include fullOfMainColorsChild;
+  }
+  &:nth-child(#{$numPerRow}n) {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+}
+
+
+
+
+///////////////////////////////
+/////    GreedCol  1-2-1 /////
+/////////////////////////////
+
+
+@mixin gridCol($grid-columns) {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i} {
+      width: 100% / $grid-columns * $i;
+      @include fullOfMainColorsChild;
+    }
+  }
+}
+
+// @mixin gridCol($grid-columns) {
+//
+//   @for $i from 1 through $grid-columns {
+//     &:nth-child(#{$i}) {
+//       width: 100% / $grid-columns * $i;
+//       @include fullOfMainColorsChild;
+//     }
+//   }
+// }
+
+@mixin gridCol2($grid-columns) {
+
+  @for $i from 1 through $grid-columns {
+    &:nth-child(#{$i})  {
+      width: 100% / $grid-columns * $i;
+      border: 1px solid red;
+      @include fullOfMainColorsChild;
+    }
+  }
+}
